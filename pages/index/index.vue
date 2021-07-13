@@ -11,14 +11,19 @@
 	export default {
 		data() {
 			return {
-				title: 'Hello'
+				title: 'Hello',
+				userInfo:{},
 			}
 		},
 		onLoad() {
-
+			 // #ifdef MP-WEIXIN
+			 if(wx.hideHomeButton){  
+			     wx.hideHomeButton();  
+			 }  
+			 // #endif
 		},
 		methods: {
-
+			
 		}
 	}
 </script>
