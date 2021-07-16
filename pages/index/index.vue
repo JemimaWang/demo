@@ -1,13 +1,13 @@
 <template>
 	<view class="content">
-		<image class="logo" src="/static/logo.png"></image>
-		<view class="text-area">
-			<text class="title">{{title}}</text>
-		</view>
+		<view @click="toDispensing()">复诊配药</view>
+		<view @click="toRecord()">配药记录</view>
+		<view></view>
 	</view>
 </template>
 
 <script>
+	
 	export default {
 		data() {
 			return {
@@ -23,6 +23,16 @@
 			 // #endif
 		},
 		methods: {
+			toDispensing(){
+				uni.navigateTo({
+					url:"../dispensing/dispensing"
+				})
+			},
+			toRecord(){
+				uni.navigateTo({
+					url:"../medicineRecord/medicineRecord"
+				})
+			}
 			
 		}
 	}

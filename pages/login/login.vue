@@ -34,6 +34,7 @@
 					desc:'登录',
 					success:(res)=>{
 						_this.userInfo = res.userInfo;
+						console.log(res.userInfo);
 						_this.login();
 					}
 				})
@@ -61,13 +62,15 @@
 								 * 		若未找到，将下面的userInfo添加到表中，再登录
 								 * 
 								*/
-								let userInfo={
+								let user={
 									type: '1',
 									openId: result.data.openid,
 									phone: '无',
 									createTime: new Date()
 								}
-								uni.setStorageSync('user',JSON.stringify(userInfo));
+								console.log(user)
+								uni.setStorageSync('user',JSON.stringify(user));
+								uni.setStorageSync('userInfo',JSON.stringify(_this.userInfo))
 								uni.redirectTo({
 									url:"../index/index"
 								})

@@ -12,14 +12,15 @@
 	}
 </script>
 
-<style>
-	/*每个页面公共css */
+<style lang="scss">
+	/*每个页面公共css */ 
 	/* @import "/static/font/iconfont.css"; */
+	@import "uview-ui/index.scss";
 	@font-face {
-	  font-family: 'iconfont';  /* Project id 2670456 */
-	  src: url('https://at.alicdn.com/t/font_2670456_7c2rzcmc0t3.woff2?t=1626157211659') format('woff2'),
-	       url('https://at.alicdn.com/t/font_2670456_7c2rzcmc0t3.woff?t=1626157211659') format('woff'),
-	       url('https://at.alicdn.com/t/font_2670456_7c2rzcmc0t3.ttf?t=1626157211659') format('truetype');
+	  font-family: "iconfont"; /* Project id 2670456 */
+	  src: url('https://at.alicdn.com/t/font_2670456_1gcoapybzo3.woff2?t=1626396102661') format('woff2'),
+	       url('https://at.alicdn.com/t/font_2670456_1gcoapybzo3.woff?t=1626396102661') format('woff'),
+	       url('https://at.alicdn.com/t/font_2670456_1gcoapybzo3.ttf?t=1626396102661') format('truetype');
 	}
 	
 	.iconfont {
@@ -30,6 +31,22 @@
 	  -moz-osx-font-smoothing: grayscale;
 	}
 	
+	.icon-fuzhenpeiyao:before {
+	  content: "\e679";
+	}
+	
+	.icon-jiahao:before {
+	  content: "\e626";
+	}
+	
+	.icon-ziyuan:before {
+	  content: "\e6a5";
+	}
+	
+	.icon-you:before {
+	  content: "\e60d";
+	}
+	
 	.icon-info:before {
 	  content: "\e61a";
 	}
@@ -37,6 +54,9 @@
 	.icon-weixin:before {
 	  content: "\e7e5";
 	}
+
+
+
 
 	
 	
