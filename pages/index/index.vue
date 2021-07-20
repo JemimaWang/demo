@@ -1,8 +1,7 @@
 <template>
 	<view class="content">
-		<view @click="toDispensing()">复诊配药</view>
-		<view @click="toRecord()">配药记录</view>
-		<view></view>
+		<view @click="toDispensing()" class="index-item">复诊配药</view>
+		<view @click="toRecord()" class="index-item">配药记录</view>
 	</view>
 </template>
 
@@ -39,29 +38,13 @@
 </script>
 
 <style>
-	.content {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-	}
-
-	.logo {
-		height: 200rpx;
-		width: 200rpx;
-		margin-top: 200rpx;
-		margin-left: auto;
-		margin-right: auto;
-		margin-bottom: 50rpx;
-	}
-
-	.text-area {
-		display: flex;
-		justify-content: center;
-	}
-
-	.title {
-		font-size: 36rpx;
-		color: #8f8f94;
+	.index-item{
+		border: 1rpx solid #28B294;
+		border-radius: 50rpx;
+		padding: 70rpx 0;
+		margin: 40rpx;
+		font-size: 50rpx;
+		color: #28B294;
+		text-align: center;
 	}
 </style>

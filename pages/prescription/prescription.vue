@@ -10,7 +10,7 @@
 				<view>姓名 {{prescrption.person.name}}</view>
 				<view>性别 {{prescrption.person.sex}}</view>
 				<view>年龄 {{prescrption.person.age}}岁</view>
-				<view>日期 {{prescrption.createTime.format('yyyy-MM-dd')}}</view>
+				<view>日期 {{getFormatDate(prescrption.createTime)}}</view>
 			</view>
 			<view>
 				<view>身份证号 {{prescrption.person.identity}}</view>
@@ -23,12 +23,12 @@
 				<view>
 					<view class="drug-item-name">{{item.drugName}}</view>
 					<view class="drug-item-usage">
-						用法：{{item.dose+item.doseUnit}}/次 {{item.frequencyAbbr}} {{item.usageName}} 
+						用法：{{item.dose+item.doseUnit}}/次 {{item.frequencyName}} {{item.usageName}} 
 					</view>
 				</view>
 				<view>{{item.quantity+item.packUnit}}</view>
 			</view>
-			<view class="drug-prize">药费：<text>¥{{getTotalPrize()}}</text>元</view>
+			<view class="drug-prize">药费：<text>¥{{getTotalPrice()}}</text>元</view>
 		</view>
 		<view class="prescrption-footer">
 			<view class="doctor-content">
@@ -47,65 +47,67 @@
 		data() {
 			return {
 				tips:'*药师温馨提示：请遵医嘱服药！处方当日有效！',
-				prescrption:{
-					createTime:new Date(),//create_time(prescription_info)
-					type:'普通药品处方',//处方类型
-					org:{
-						orgId:1,
-						orgName:'创业慧康医院',//org_name(consult_ask)
-					},
-					doctor:{
-						doctorId:1,
-						doctorName:'许武林'
-					},
-					person:{
-						name:'童晓航',//person_name(consult_ask)
-						sex:'男',//person_gender_name(consult_ask)
-						age:29,//person_age(consult_ask)
-						phone:'15306518065',//person_phone_no(consult_ask)
-						identity:'330781199112182333',//person_card_id(consult_ask)
-						
-					},
-					drugs:[{
-						drugName:'莲花清瘟胶囊',//药品名字
-						specification:'0.35g*36粒',//药品规格
-						usageName:'口服',//药品用法
-						dose:'0.35',//一次剂量
-						doseUnit:'g',
-						frequencyAbbr:'qd',//用药频率缩写
-						prize:29.10,//药品单价
-						quantity:1.00,//药品数量
-						packUnit:'盒',//包装单位
-						sortNumber:1,//顺序号
-						groupNumber:1,
-						remark:'',//嘱托
-					},
-					{
-						drugName:'小柴胡颗粒',//药品名字
-						specification:'10g*9袋',//药品规格
-						usageName:'口服',//药品用法
-						dose:'10.00',//一次剂量
-						doseUnit:'g',
-						frequencyAbbr:'qd',//用药频率缩写
-						prize:18.20,//药品单价
-						quantity:1.00,//药品数量
-						packUnit:'盒',//包装单位
-						sortNumber:1,//顺序号
-						groupNumber:1,
-						remark:'',//嘱托
-					}]
-					
-				},
+				prescrption:null
 			}
 		},
 		methods: {
-			getTotalPrize(){
+			getFormatDate(time){
+				let date = new Date(time)
+				return date.format('yyyy-MM-dd')
+			},
+			getTotalPrice(){
 				let total = 0.00;
 				for(let item of this.prescrption.drugs){
-					total = total+item.prize;
+					total = total+item.price;
 				}
 				return total.toFixed(2);
-			}
+			},
+		},
+		onLoad(options) {
+			console.log(options)
+			let consultAsk = JSON.parse(decodeURIComponent(options.consultAsk))
+			console.log(consultAsk)
+			let _this = this;
+			uni.request({
+				url:"http://47.102.159.24:9000/selectPrescriptionByConsult",
+				data:{
+					consultId:consultAsk.consultId
+				},
+				success:res=>{
+					console.log(res)
+					let prescriptionInfo = res.data.data;
+					let prescription = {
+						createTime:prescriptionInfo.createTime,
+						type:prescriptionInfo.prescrptionType,
+						org:{
+							orgId:consultAsk.orgId,
+							orgName:consultAsk.orgName
+						},
+						doctor:{
+							doctorId:consultAsk.doctorId,
+							doctorName:consultAsk.doctorName
+						},
+						person:{
+							name:consultAsk.personName,//person_name(consult_ask)
+							sex:consultAsk.personGenderName,//person_gender_name(consult_ask)
+							age:consultAsk.personAge,//person_age(consult_ask)
+							phone:consultAsk.personPhoneNo,//person_phone_no(consult_ask)
+							identity:consultAsk.personCardId,//person_card_id(consult_ask)
+						},
+					}
+					uni.request({
+						url:"http://47.102.159.24:9000/selectPrescriptionDrugByPrescription",
+						data:{
+							prescriptionId:prescriptionInfo.prescriptionId
+						},
+						success:res2=>{
+							prescription.drugs = res2.data.data;
+							_this.prescrption = prescription
+						}
+					});
+					
+				}
+			})
 		}
 	}
 </script>

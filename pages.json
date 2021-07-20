@@ -31,7 +31,7 @@
             "path" : "pages/fillInfo/fillInfo",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "",
+                "navigationBarTitleText": "填写信息",
                 "enablePullDownRefresh": false
             }
             
@@ -40,7 +40,7 @@
             "path" : "pages/addMedicine/addMedicine",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "",
+                "navigationBarTitleText": "添加药品",
                 "enablePullDownRefresh": false
             }
             
@@ -49,7 +49,7 @@
             "path" : "pages/medicineRecord/medicineRecord",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "",
+                "navigationBarTitleText": "配药记录",
                 "enablePullDownRefresh": false
             }
             
@@ -58,12 +58,60 @@
             "path" : "pages/prescription/prescription",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "",
+                "navigationBarTitleText": "查看处方",
                 "enablePullDownRefresh": false
             }
             
         }
+        ,{
+            "path" : "pages/aboutme/aboutme",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "我的",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/bindPhone/bindPhone",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "绑定手机",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/chooseDoctor/chooseDoctor",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "选择医生",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        
     ],
+	"tabBar":{
+		"color":"#8a8a8a",
+		"selectedColor":"#00aa00",
+		"backgroundColor":"#fff",
+		"list":[
+			{
+				"pagePath":"pages/index/index",
+				"text":"首页",
+				"iconPath":"static/index.png",
+				"selectedIconPath":"static/indexSelected.png"
+			},
+			{
+				"pagePath":"pages/aboutme/aboutme",
+				"text":"我的",
+				"iconPath":"static/aboutme.png",
+				"selectedIconPath":"static/aboutmeSelected.png"
+			}
+		]
+		
+	},
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",

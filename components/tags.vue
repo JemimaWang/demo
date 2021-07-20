@@ -3,7 +3,7 @@
 		<view v-for="(item,index) in tagArr" class="tag-item":key>
 			<view class="tag-close iconfont icon-ziyuan"
 				@tap="deleteTag(index)"></view>
-			<view class="tag-content">{{item}}</view>
+			<view class="tag-content">{{item.drugName}}</view>
 		</view>
 		<view v-if="tagArr.length===0" class="tag-show-empty">
 			暂无药品
@@ -32,7 +32,7 @@
 			}
 		},
 		created(){
-			// console.log(this.tagArr)
+			console.log(this.tagArr)
 			
 		}
 	}

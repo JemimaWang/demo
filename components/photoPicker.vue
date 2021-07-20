@@ -29,6 +29,7 @@
 				}
 				arr.pop();
 				this.dataArr = arr;
+				this.$emit("changeImg",this.dataArr);
 			},
 			addPhoto(){
 				let _this = this;
@@ -39,6 +40,7 @@
 						console.log(res)
 						let url = res.tempFilePaths[0];
 						_this.dataArr.push(url); 
+						_this.$emit("changeImg",_this.dataArr);
 					}
 				})
 				

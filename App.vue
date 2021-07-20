@@ -18,9 +18,9 @@
 	@import "uview-ui/index.scss";
 	@font-face {
 	  font-family: "iconfont"; /* Project id 2670456 */
-	  src: url('https://at.alicdn.com/t/font_2670456_1gcoapybzo3.woff2?t=1626396102661') format('woff2'),
-	       url('https://at.alicdn.com/t/font_2670456_1gcoapybzo3.woff?t=1626396102661') format('woff'),
-	       url('https://at.alicdn.com/t/font_2670456_1gcoapybzo3.ttf?t=1626396102661') format('truetype');
+	  src: url('https://at.alicdn.com/t/font_2670456_dqrezknsan8.woff2?t=1626501030593') format('woff2'),
+	       url('https://at.alicdn.com/t/font_2670456_dqrezknsan8.woff?t=1626501030593') format('woff'),
+	       url('https://at.alicdn.com/t/font_2670456_dqrezknsan8.ttf?t=1626501030593') format('truetype');
 	}
 	
 	.iconfont {
@@ -29,6 +29,10 @@
 	  font-style: normal;
 	  -webkit-font-smoothing: antialiased;
 	  -moz-osx-font-smoothing: grayscale;
+	}
+	
+	.icon-icon-test:before {
+	  content: "\e621";
 	}
 	
 	.icon-fuzhenpeiyao:before {

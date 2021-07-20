@@ -35,8 +35,10 @@
 					name:'',
 					identity:'',
 					sex:'',
+					sexCode:'',
 					birthdate:'',
-					phone:''
+					phone:'',
+					age:0,
 				},
 				sexData: [{
 					text: '男',
@@ -60,11 +62,13 @@
 					identity:{
 						rules:[
 							{required:true,errorMessage: '请输入身份证'},
+							{maxLength:18,minLength:18,errorMessage:'请输入正确格式的身份证：18位'}
 						]
 					},
 					phone:{
 						rules:[
 							{required:true,errorMessage: '请输入手机号'},
+							{maxlength:11,minLength:11,errorMessage:'请输入正确格式的手机号：11位'}
 						]
 					},
 					birthdate:{
@@ -81,7 +85,13 @@
 				this.$refs.form.submit().then(res=>{
 					//表单验证成功
 					console.log('表单数据信息：', res);
-					let personShortInfo = this.formData.name+' '+this.formData.sex+' '+this.getAge()+'岁'
+					this.formData.age = this.getAge();
+					if(this.formData.sex==='男'){
+						this.formData.sexCode = 1;
+					}else{
+						this.formData.sexCode = 2;
+					}
+					let personShortInfo = this.formData.name+' '+this.formData.sex+' '+this.formData.age+'岁'
 					let str = this.formData.phone.slice(0,3)+'****'+this.formData.phone.slice(7)
 					let str2 = this.formData.identity.slice(0,6)+'********'+this.formData.identity.slice(14)
 					let personOtherInfo = str + '， '+str2
@@ -89,6 +99,7 @@
 					var pages = getCurrentPages();
 					var prevPage = pages[pages.length - 2]; //上一个页面
 					console.log(prevPage)
+					console.log(this.formData)
 					let object = {
 						name:'fillInfo',
 						personShortInfo:personShortInfo,
@@ -130,5 +141,7 @@
 </script>
 
 <style>
-	
+	.fill-info{
+		padding: 30rpx;
+	}
 </style>

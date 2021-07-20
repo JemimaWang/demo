@@ -14,7 +14,7 @@
 						<view>在线云诊台</view>
 					</view>
 					<view class="record-person-name">就诊人：{{item.personName}}</view>
-					<view class="record-ill">病情：{{item.ill}}</view>
+					<view class="record-ill">病情：{{item.diagnosis}}</view>
 				</view>
 			</view>
 			<view class="record-footer">
@@ -32,26 +32,7 @@
 	export default {
 		data() {
 			return {
-				records:[
-					{
-						consultId:1,//问诊id，数据库consult_id
-						createTime:new Date(),//问诊时间-创建时间 数据库create_time 之后通过getAcceptTime转换为格式：2021-05-24 11:26
-						doctorImg:'https://qbkeass.cn/fzpy/image/doctors/doctor.png',//医生头像
-						doctorName:'林玉娇',//医生姓名 doctor_name
-						personName:'张伟',//就诊人-配药人姓名，person_name
-						ill:'流行性感冒',//病情-诊断小结,diagnosis
-						consultStatus:1,//待完成&已完成 通过consult_status,1待接诊，2进行中，3已完成
-					},
-					{
-						consultId:2,
-						createTime:new Date(),//问诊时间(接诊时间) 格式：2021-05-24 11:26
-						doctorImg:'https://qbkeass.cn/fzpy/image/doctors/doctor.png',
-						doctorName:'林玉娇',//医生
-						personName:'张伟',//就诊人
-						ill:'流行性感冒',//病情
-						consultStatus:3
-					}
-				]
+				records:[]
 			}
 		},
 		methods: {
@@ -60,7 +41,8 @@
 				if(time===null){
 					return '';
 				}else{
-					return time.format('yyyy-MM-dd hh:mm');
+					let date = new Date(time)
+					return date.format('yyyy-MM-dd hh:mm');
 				}
 			},
 			getStatus(index){
@@ -79,10 +61,47 @@
 				//可以只传入consultId，在处方界面获得处方信息
 				//也可以在此界面获得处方的信息，把处方的信息传给处方界面
 				uni.navigateTo({
-					//url:"../prescription/prescription?consultId="+this.durgs[index].consultId
-					url:"../prescription/prescription"
+					// url:"../prescription/prescription?consultId="+this.durgs[index].consultId
+					url:"../prescription/prescription?consultAsk="+encodeURIComponent(JSON.stringify(this.records[index]))
 				})
 			}
+			
+		},
+		created() {
+			let user = JSON.parse(uni.getStorageSync("user"));
+			let doctors = null;
+			let _this = this;
+			console.log(user.userId)
+			uni.request({
+				url:"http://47.102.159.24:9000/getDoctor",
+				success:res=>{
+					doctors = res.data.data;
+					uni.request({
+						url:"http://47.102.159.24:9000/selectUserConsult",
+						data:{
+							createUserId:user.userId
+						},
+						success:res2=>{
+							_this.records = res2.data.data;
+							console.log(_this.records)
+							console.log(doctors)
+							//获取医生照片
+							for(let item of _this.records){
+								for(let doctor of doctors){
+									if(item.doctorId===doctor.doctorId){
+										item.doctorImg = doctor.avatarUrl
+									}
+								}
+							}
+							
+						}
+					});
+				}
+				
+			})
+			
+			
+			
 		}
 	}
 </script>
